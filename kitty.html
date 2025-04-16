@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>精美猫咪</title>
+    <style>
+      body {
+        background: #f7f1e8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .cat-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+      }
+
+      .cat {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .tail-container {
+        position: absolute;
+        top: 200px;
+        right: -63px;
+        z-index: -3;
+      }
+
+      .tail {
+        position: relative;
+        width: 85px;
+        height: 60px;
+        overflow: visible;
+      }
+
+      .tail-path {
+        position: absolute;
+        width: 85px;
+        height: 60px;
+        top: 0;
+        left: 0;
+      }
+
+      .tail-curve {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 85px;
+        height: 60px;
+        overflow: visible;
+      }
+
+      .tail-curve svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 85px;
+        height: 60px;
+        overflow: visible;
+      }
+
+      .tail-curve path {
+        fill: none;
+        stroke: #4e4351;
+        stroke-width: 12;
+        stroke-linecap: round;
+      }
+
+      .cat-head {
+        position: relative;
+        width: 150px;
+        height: 130px;
+        background: #4e4351;
+        border-radius: 46% 46% 60% 60%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .ear {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 40px solid #4e4351;
+        top: -30px;
+      }
+
+      .ear-left {
+        left: 15px;
+        transform: rotate(-15deg);
+      }
+
+      .ear-right {
+        right: 15px;
+        transform: rotate(15deg);
+      }
+
+      .ear-inner {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 25px solid #f8b5c4;
+        top: 5px;
+        left: -15px;
+      }
+
+      .eye {
+        position: absolute;
+        width: 38px;
+        height: 38px;
+        background: #fff;
+        border-radius: 50%;
+        top: 40px;
+      }
+
+      .eye-left {
+        left: 30px;
+      }
+
+      .eye-right {
+        right: 30px;
+      }
+
+      .pupil {
+        position: absolute;
+        width: 18px;
+        height: 28px;
+        background: #333;
+        border-radius: 50%;
+        top: 5px;
+        animation: blink 5s infinite;
+      }
+
+      .eye-left .pupil {
+        right: 5px;
+      }
+
+      .eye-right .pupil {
+        left: 5px;
+      }
+
+      .shine {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border-radius: 50%;
+        top: 5px;
+        left: 5px;
+      }
+
+      .nose {
+        position: absolute;
+        width: 16px;
+        height: 10px;
+        background: #f8b5c4;
+        border-radius: 50%;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .mouth {
+        position: absolute;
+        width: 12px;
+        height: 8px;
+        border-bottom: 2px solid #333;
+        border-radius: 0 0 30px 30px;
+        top: 95px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .whisker-container {
+        position: absolute;
+        width: 200px;
+        height: 40px;
+        left: 50%;
+        top: 85px;
+        transform: translateX(-50%);
+      }
+
+      .whisker {
+        position: absolute;
+        width: 60px;
+        height: 2px;
+        background: #333;
+        border-radius: 5px;
+      }
+
+      .whisker-left-top {
+        top: 5px;
+        left: 0;
+        transform: rotate(10deg);
+      }
+
+      .whisker-left-middle {
+        top: 20px;
+        left: 5px;
+        transform: rotate(5deg);
+      }
+
+      .whisker-left-bottom {
+        top: 35px;
+        left: 10px;
+        transform: rotate(-5deg);
+      }
+
+      .whisker-right-top {
+        top: 5px;
+        right: 0;
+        transform: rotate(-10deg);
+      }
+
+      .whisker-right-middle {
+        top: 20px;
+        right: 5px;
+        transform: rotate(-5deg);
+      }
+
+      .whisker-right-bottom {
+        top: 35px;
+        right: 10px;
+        transform: rotate(5deg);
+      }
+
+      .body {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: #4e4351;
+        border-radius: 50% 50% 40% 40%;
+        top: 110px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+
+      .paw {
+        position: absolute;
+        width: 26px;
+        height: 45px;
+        background: #4e4351;
+        border-radius: 30% 30% 50% 50%;
+        z-index: -2;
+      }
+
+      .paw-left {
+        top: 190px;
+        left: 62px;
+        transform: rotate(-10deg);
+      }
+
+      .paw-right {
+        top: 190px;
+        right: 62px;
+        transform: rotate(10deg);
+      }
+
+      @keyframes blink {
+        0%,
+        45%,
+        55%,
+        100% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0.1);
+        }
+      }
+
+      .cat-shadow {
+        position: absolute;
+        width: 130px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        top: 250px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -4;
+        filter: blur(5px);
+      }
+
+      .decoration {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -5;
+        overflow: hidden;
+      }
+
+      .flower {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+
+      .flower1 {
+        background: rgba(255, 183, 197, 0.7);
+        top: 40px;
+        left: 30px;
+      }
+
+      .flower2 {
+        background: rgba(173, 216, 230, 0.7);
+        top: 80px;
+        right: 40px;
+      }
+
+      .flower3 {
+        background: rgba(152, 251, 152, 0.7);
+        bottom: 50px;
+        left: 50px;
+      }
+
+      .flower4 {
+        background: rgba(238, 232, 170, 0.7);
+        bottom: 70px;
+        right: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cat-container">
+      <div class="decoration">
+        <div class="flower flower1"></div>
+        <div class="flower flower2"></div>
+        <div class="flower flower3"></div>
+        <div class="flower flower4"></div>
+      </div>
+      <div class="cat">
+        <div class="cat-head">
+          <div class="ear ear-left">
+            <div class="ear-inner"></div>
+          </div>
+          <div class="ear ear-right">
+            <div class="ear-inner"></div>
+          </div>
+          <div class="eye eye-left">
+            <div class="pupil">
+              <div class="shine"></div>
+            </div>
+          </div>
+          <div class="eye eye-right">
+            <div class="pupil">
+              <div class="shine"></div>
+            </div>
+          </div>
+          <div class="nose"></div>
+          <div class="mouth"></div>
+          <div class="whisker-container">
+            <div class="whisker whisker-left-top"></div>
+            <div class="whisker whisker-left-middle"></div>
+            <div class="whisker whisker-left-bottom"></div>
+            <div class="whisker whisker-right-top"></div>
+            <div class="whisker whisker-right-middle"></div>
+            <div class="whisker whisker-right-bottom"></div>
+          </div>
+        </div>
+        <div class="body"></div>
+        <div class="paw paw-left"></div>
+        <div class="paw paw-right"></div>
+
+        <div class="tail-container">
+          <div class="tail">
+            <div class="tail-path">
+              <div class="tail-curve">
+                <svg viewBox="0 0 85 60">
+                  <path id="tail-shape" d="M0,0 C20,5 40,-5 60,20" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cat-shadow"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const tailPath = document.getElementById('tail-shape');
+
+        let phase = 0;
+        function animateTail() {
+          phase += 0.01;
+          if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
+
+          const sinValue = Math.sin(phase);
+          const cosValue = Math.cos(phase);
+
+          const startPointX = 0;
+          const startPointY = 0;
+
+          const controlPoint1X = 20;
+          const controlPoint1Y = 5 * sinValue + 10 * cosValue;
+
+          const controlPoint2X = 45;
+          const controlPoint2Y = -10 * cosValue + 7 * sinValue;
+
+          const endPointX = 75;
+          const endPointY = 15 * sinValue - 10 * cosValue;
+
+          tailPath.setAttribute(
+            'd',
+            `M${startPointX},${startPointY} C${controlPoint1X},${controlPoint1Y} ${controlPoint2X},${controlPoint2Y} ${endPointX},${endPointY}`,
+          );
+
+          requestAnimationFrame(animateTail);
+        }
+
+        animateTail();
+      });
+    </script>
+  </body>
+</html>
